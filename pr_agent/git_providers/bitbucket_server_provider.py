@@ -18,14 +18,9 @@ class BitbucketServerProvider(GitProvider):
         self, pr_url: Optional[str] = None, incremental: Optional[bool] = False
     ):
         s = requests.Session()
-        try:
-            bearer = context.get("bitbucket_bearer_token", None)
-            s.headers["Authorization"] = f"Bearer {bearer}"
-        except Exception:
-            s.headers[
+        s.headers[
                 "Authorization"
             ] = f'Bearer {get_settings().get("BITBUCKET_SERVER.BEARER_TOKEN", None)}'
-
         s.headers["Content-Type"] = "application/json"
         self.headers = s.headers
         self.bitbucket_server_url = None

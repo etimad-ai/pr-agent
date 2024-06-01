@@ -1,8 +1,8 @@
 [config]
-model="gpt-4-turbo-2024-04-09"
-model_turbo="gpt-4o"
-fallback_models=["gpt-4-0125-preview"]
-git_provider="github"
+model="groq/llama3-70b-8192"
+model_turbo="groq/llama3-70b-8192"
+fallback_models=["groq/llama3-70b-8192"]
+git_provider="bitbucket_server"
 publish_output=true
 publish_output_progress=true
 verbosity_level=0 # 0,1,2
@@ -204,7 +204,7 @@ pr_commands = [
 [bitbucket_server]
 # URL to the BitBucket Server instance
 # url = "https://git.bitbucket.com"
-url = ""
+url = "http://localhost:7990"
 
 [litellm]
 # use_client = false
