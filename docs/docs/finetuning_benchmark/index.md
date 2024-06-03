@@ -4,7 +4,7 @@ On coding tasks, the gap between open-source models and top closed-source models
 <br>
 In practice, open-source models are unsuitable for most real-world code tasks, and require further fine-tuning to produce acceptable results.
 
-_PR-Agent fine-tuning benchmark_ aims to benchmark open-source models on their ability to be fine-tuned for a code task.
+_PR-Agent fine-tuning benchmark_ aims to benchmark open-source models on their ability to be fine-tuned for a coding task.
 Specifically, we chose to fine-tune open-source models on the task of analyzing a pull request, and providing useful feedback and code suggestions.
 
 Here are the results:
@@ -52,11 +52,18 @@ Here are the results:
 
 ### Training dataset
 
-Our training dataset is comprised of 25,000 pull requests, aggregated from permissive license repos. For each pull request, we generated responses for the three main tools of PR-Agent:
+Our training dataset comprises 25,000 pull requests, aggregated from permissive license repos. For each pull request, we generated responses for the three main tools of PR-Agent:
 [Describe](https://pr-agent-docs.codium.ai/tools/describe/), [Review](https://pr-agent-docs.codium.ai/tools/improve/) and [Improve](https://pr-agent-docs.codium.ai/tools/improve/).
 
 On the raw data collected, we employed various automatic and manual cleaning techniques to ensure the outputs were of the highest quality, and suitable for instruct-tuning.
-An example input prompt can be found [here](https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/pr_code_suggestions_prompts.toml), and an example output can be found [here](https://github.com/Codium-ai/pr-agent/pull/910#issuecomment-2118761309).
+
+Here are the prompts, and example outputs, used as input-output pairs to fine-tune the models:
+
+| Tool     | Prompt                                                                                                     | Example output |
+|----------|------------------------------------------------------------------------------------------------------------|----------------|
+| Describe | [link](https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/pr_description_prompts.toml) | [link](https://github.com/Codium-ai/pr-agent/pull/910#issue-2303989601)           |
+| Review   | [link](https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/pr_reviewer_prompts.toml) | [link](https://github.com/Codium-ai/pr-agent/pull/910#issuecomment-2118761219)           |
+| Improve  | [link](https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/pr_code_suggestions_prompts.toml) | [link](https://github.com/Codium-ai/pr-agent/pull/910#issuecomment-2118761309)           |
 
 ### Evaluation dataset
 
@@ -68,7 +75,7 @@ An example input prompt can be found [here](https://github.com/Codium-ai/pr-agen
 
 We experimented with three model as judges: `gpt-4-turbo-2024-04-09`, `gpt-4o`, and `claude-3-opus-20240229`. All three produced similar results, with the same ranking order. This strengthens the validity of our testing protocol.
 
-Here is an example for a judge model feedback:
+Here is an example of a judge model feedback:
 
 ```
 command: improve
